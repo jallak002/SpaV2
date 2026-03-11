@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold-primary: #C9A84C;
+  --gold-dark: #8B6914;
+  --gold-light: #F0D060;
+  --gold-subtle: rgba(201, 168, 76, 0.15);
+  --gold-border: rgba(201, 168, 76, 0.3);
+
+  /* Light Theme Specific */
+  --bg-dark: #F3F4F6;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-hover: #F9FAFB;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #9CA3AF;
+
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+}
+
+.dark {
+  --bg-dark: #0A0A0A;
+  --bg-surface: #111111;
+  --bg-card: #1A1A1A;
+  --bg-hover: #222222;
+  --text-primary: #F5F5F0;
+  --text-secondary: #A0A0A0;
+  --text-muted: #666666;
+  --success: #4CAF50;
+  --warning: #FF9800;
+  --danger: #F44336;
+  --info: #2196F3;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dark) var(--bg-card);
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-card);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--gold-dark);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+
+html,
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+/* Gold gradient text */
+.gradient-gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gold border card */
+.card-gold {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-border);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.card-gold:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.1);
+}
+
+/* Premium button */
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  color: #0A0A0A;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gold-border);
+  border-radius: 16px;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--bg-surface);
+  border-right: 1px solid var(--gold-border);
+}
+
+/* Table */
+.table-row-hover:hover {
+  background: var(--bg-hover);
+}
+
+/* Status badge colors */
+.status-scheduled {
+  background: rgba(201, 168, 76, 0.2);
+  color: #C9A84C;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+}
+
+.status-confirmed {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.4);
+}
+
+.status-in_progress {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+  border: 1px solid rgba(33, 150, 243, 0.4);
+}
+
+.status-completed {
+  background: rgba(160, 160, 160, 0.2);
+  color: #A0A0A0;
+  border: 1px solid rgba(160, 160, 160, 0.4);
+}
+
+.status-cancelled {
+  background: rgba(244, 67, 54, 0.2);
+  color: #F44336;
+  border: 1px solid rgba(244, 67, 54, 0.4);
+}
+
+.status-no_show {
+  background: rgba(255, 152, 0, 0.2);
+  color: #FF9800;
+  border: 1px solid rgba(255, 152, 0, 0.4);
+}
+
+/* Membership level colors */
+.level-standard {
+  color: var(--text-secondary);
+}
+
+.level-gold {
+  color: #C9A84C;
+}
+
+.level-platinum {
+  color: #E8E8E8;
+}
+
+.level-black {
+  color: #000;
+  background: linear-gradient(135deg, #333, #111);
+}
+
+/* Segment badges */
+.segment-new {
+  background: rgba(33, 150, 243, 0.15);
+  color: #64B5F6;
+}
+
+.segment-vip {
+  background: rgba(201, 168, 76, 0.15);
+  color: #C9A84C;
+}
+
+.segment-at_risk {
+  background: rgba(255, 152, 0, 0.15);
+  color: #FF9800;
+}
+
+.segment-lost {
+  background: rgba(244, 67, 54, 0.15);
+  color: #F44336;
+}
+
+.segment-active {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4CAF50;
+}
+
+.segment-package_holder {
+  background: rgba(156, 39, 176, 0.15);
+  color: #CE93D8;
+}
+
+/* Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-hover) 50%, var(--bg-card) 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 8px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+/* Recharts dark theme overrides */
+.recharts-text {
+  fill: var(--text-secondary) !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.05) !important;
+}
