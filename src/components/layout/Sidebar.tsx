@@ -21,6 +21,7 @@ import {
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { useMobileMenu } from '@/components/providers/MobileMenuProvider'
 
 const navItems = [
     { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -39,11 +40,9 @@ export default function Sidebar() {
     const pathname = usePathname()
     const router = useRouter()
     const supabase = createClient()
+    const { isOpen, close } = useMobileMenu()
     const [logoUrl, setLogoUrl] = useState('')
     const [userRole, setUserRole] = useState<string | null>(null)
-    const [showPasswordModal, setShowPasswordModal] = useState(false)
-    const [newPassword, setNewPassword] = useState('')
-    const [changingPassword, setChangingPassword] = useState(false)
 
     useEffect(() => {
         const fetchUserRole = async () => {
@@ -68,28 +67,6 @@ export default function Sidebar() {
         return () => window.removeEventListener('storage', handleStorage)
     }, [])
 
-    const handlePasswordChange = async (e: React.FormEvent) => {
-        e.preventDefault()
-        if (newPassword.length < 6) {
-            toast.error('Şifre en az 6 karakter olmalıdır.')
-            return
-        }
-
-        setChangingPassword(true)
-        const { error } = await supabase.auth.updateUser({
-            password: newPassword
-        })
-        setChangingPassword(false)
-
-        if (error) {
-            toast.error('Şifre güncellenirken hata oluştu: ' + error.message)
-        } else {
-            toast.success('Şifreniz başarıyla güncellendi!')
-            setShowPasswordModal(false)
-            setNewPassword('')
-        }
-    }
-
     const handleLogout = async () => {
         await supabase.auth.signOut()
         router.push('/login')
@@ -97,8 +74,17 @@ export default function Sidebar() {
     }
 
     return (
-        <aside className="sidebar w-64 min-h-screen flex flex-col fixed left-0 top-0 z-40">
-            {/* Logo */}
+        <>
+            {/* Mobile Backdrop */}
+            {isOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm transition-opacity"
+                    onClick={close}
+                />
+            )}
+
+            <aside className={`sidebar w-64 min-h-screen flex flex-col fixed left-0 top-0 z-50 bg-[var(--bg-card)] border-r border-[var(--gold-border)] transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                {/* Logo */}
             <div className="p-6 border-b border-[var(--gold-border)]">
                 <Link href="/dashboard" className="flex items-center gap-4">
                     {logoUrl ? (
@@ -168,5 +154,6 @@ export default function Sidebar() {
                 </button>
             </div>
         </aside>
+        </>
     )
 }

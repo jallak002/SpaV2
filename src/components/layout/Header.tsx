@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
+import { useMobileMenu } from '@/components/providers/MobileMenuProvider'
 
 interface HeaderProps {
     title?: string
@@ -131,12 +132,22 @@ export default function Header({ title, subtitle }: HeaderProps) {
         }
     }
 
+    const { toggle } = useMobileMenu()
+
     return (
-        <header className="h-16 flex items-center justify-between px-6 border-b border-[var(--gold-border)] bg-[var(--bg-surface)] z-30">
-            {/* Page Title */}
-            <div>
-                {title && <h1 className="text-lg font-semibold text-[var(--text-primary)]">{title}</h1>}
-                {subtitle && <p className="text-xs text-[var(--text-muted)]">{subtitle}</p>}
+        <header className="h-16 flex items-center justify-between px-4 md:px-6 border-b border-[var(--gold-border)] bg-[var(--bg-surface)] z-30">
+            {/* Page Title & Mobile Toggle */}
+            <div className="flex items-center gap-3">
+                <button 
+                    onClick={toggle}
+                    className="md:hidden p-2 -ml-2 rounded-lg text-[var(--text-secondary)] hover:text-[var(--gold-primary)] hover:bg-[var(--bg-card)] transition-colors"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+                <div>
+                    {title && <h1 className="text-lg font-semibold text-[var(--text-primary)]">{title}</h1>}
+                    {subtitle && <p className="text-xs text-[var(--text-muted)]">{subtitle}</p>}
+                </div>
             </div>
 
             {/* Right side actions */}
